@@ -14,12 +14,13 @@ class Test extends Component{
             background:randomColor(),
         }
         this.handleGetFocus=this.handleGetFocus.bind(this);
+        this.handleShowMenu=this.handleShowMenu.bind(this);
     }
     focus(){
         this.textInput.focus();
     }   
-    handleClick() {
-        alert(321)
+    handleShowMenu(e) {
+        e.stopPropagation();
     }
     handleGetFocus(e){
         e.stopPropagation();
@@ -32,6 +33,9 @@ class Test extends Component{
                 background:randomColor(),
             })
         },2000)
+    }
+    shouldComponentUpdate(){
+        return false;
     } 
     render(){
         return (
@@ -39,10 +43,14 @@ class Test extends Component{
                 marginTop:this.state.value+'px',
                 background:randomColor(),
                 transition:'all 2s linear',
-            }} onClick={this.handleClick}>
-                {'输入框'}:<TestComponent  textInput={(dom)=>{this.textInput=dom}} test={2222222}/>
+            }}>
+                输入框:<TestComponent  textInput={(dom)=>{this.textInput=dom}} test={2222222}/>
                 <br/>
                 <button onClick={this.handleGetFocus}>获取焦点</button>
+                <button onClick={this.handleShowMenu} style={{marginLeft:'10px'}}>展示路由菜单</button>
+                <div className="menu-container">
+                    
+                </div>
             </div>
         )
     }
